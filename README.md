@@ -1,4 +1,4 @@
-# Estimating peanut fatty acid using NIRS and machine learning
+# Estimating millet starch content using NIRS and machine learning
 <div>
 
   !["AI pipeline"](data/nutrition_millet.png)
@@ -8,7 +8,7 @@
 #### -- Project Status: [Active]
 
 ## Objective
-The purpose of this project is estimate pearl millet grain starch content using near-infrared spectroscopy and machine learning/deep learning. Calibration models have been developed will be deployed as rapid phenotyping tools for peanut breeders. 
+The purpose of this project is estimate pearl millet grain starch content using near-infrared spectroscopy and machine learning/deep learning. Calibration models have been developed will be deployed as rapid phenotyping tools for millet breeders. 
 
 ### Partner
 * Hone Ag Pty. Ltd.
