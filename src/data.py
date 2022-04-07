@@ -23,8 +23,8 @@ def load_data(fname=None, target=None, sensor=None):
     #train = d[d['Set']=='Training']
     #test = d[d['Set']=='Validation']
     train, test = train_test_split(d, test_size=0.2, random_state=42, shuffle=True)
-    train.to_csv('./data/train.csv',index=False)
-    test.to_csv('./data/test.csv',index=False)
+    train.to_csv('../data/train.csv',index=False)
+    test.to_csv('../data/test.csv',index=False)
     #export shuffled data
     #train['Set']='Training'
     #test['Set']='Validation'
@@ -33,10 +33,10 @@ def load_data(fname=None, target=None, sensor=None):
 
     #Build predictors
     #if sensor=="hone_ag":
-    x_train = train.loc[:,'400':]
+    x_train = train.loc[:,'1350.155463':]
     #x_train = train[important_features]
     #xcolnames = x_train.columns
-    x_test = test.loc[:,'400':]
+    x_test = test.loc[:,'1350.155463':]
     #x_test = test[important_features]
 
     #Extract targets
@@ -58,8 +58,8 @@ def load_data(fname=None, target=None, sensor=None):
 
     #Extract sample metadata from test set
     #if sensor=="hone_ag":
-    train_set_metadata = train[["Genotype"]]
-    test_set_metadata = test[["Genotype"]]
+    train_set_metadata = train[["Wet lab_ID"]]
+    test_set_metadata = test[["Wet lab_ID"]]
 
 
 

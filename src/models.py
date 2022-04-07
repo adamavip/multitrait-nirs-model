@@ -156,7 +156,32 @@ def convModel5(feature_count,x_dim):
 
     return model
 
-def train_model(model,X_train, y_train, model_type=None):
+def define_convModel(cnnModel, X_train):
+    NIRS_feature_count = X_train.shape[1]
+    NIRS_dim = X_train.shape[2]
+
+    # Create a MirroredStrategy.
+    strategy = tf.distribute.MirroredStrategy(["GPU:0"])
+    print('Number of devices: {}'.format(strategy.num_replicas_in_sync))
+
+    # Open a strategy scope.
+    with strategy.scope():
+        model = cnnModel(NIRS_feature_count, NIRS_dim)
+        print("-Number of parameters: ", model.count_params())
+        #Save model architecture
+        #plot_model(training_model, to_file='./results/model_architecture.png', show_shapes=True, show_layer_names=True)
+        #Compile model
+        print('Model compilation\n')
+        opt = Adam(learning_rate=3e-4)
+        #model.compile(loss='mean_squared_error', metrics=['mse'], optimizer=opt)
+        model.compile(loss='mse', optimizer=Adadelta(lr=0.01))
+
+    return model
+
+def train_model(model,X_train, y_train, X_val, y_val, model_type=None):
+
+    reduce_lr_loss = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=25, verbose=0, min_delta=1e-6, mode='min')
+    earlyStopping = EarlyStopping(monitor='val_loss', patience=30, verbose=0, mode='min')
 
     if model_type=="ML":
         X_train = np.squeeze(X_train)
@@ -164,29 +189,6 @@ def train_model(model,X_train, y_train, model_type=None):
         model.fit(X_train, y_train)
 
     elif model_type=="DL":
-        NIRS_feature_count = X_train.shape[1]
-        NIRS_dim = X_train.shape[2]
-
-        reduce_lr_loss = ReduceLROnPlateau(monitor='val_loss', factor=0.5, patience=25, verbose=0, min_delta=1e-6, mode='min')
-        earlyStopping = EarlyStopping(monitor='val_loss', patience=30, verbose=0, mode='min')
-
-        # Create a MirroredStrategy.
-        strategy = tf.distribute.MirroredStrategy(["GPU:0"])
-        print('Number of devices: {}'.format(strategy.num_replicas_in_sync))
-
-        # Open a strategy scope.
-        with strategy.scope():
-            model = convModel5(NIRS_feature_count, NIRS_dim)
-            print("-Number of parameters: ", model.count_params())
-            #Save model architecture
-            #plot_model(training_model, to_file='./results/model_architecture.png', show_shapes=True, show_layer_names=True)
-            #Compile model
-            print('Model compilation\n')
-            opt = Adam(lr=3e-4)
-            model.compile(loss='mean_squared_error', metrics=['mse'], optimizer=opt)
-            #training_model.compile(loss='mse', optimizer=Adadelta(lr=0.01))
-
-
 
         print('Model training started...')
         history = model.fit(X_train, y_train,
@@ -196,6 +198,8 @@ def train_model(model,X_train, y_train, model_type=None):
                             verbose=0,
                             callbacks=[reduce_lr_loss,earlyStopping])
         print('Model training complete!')
+
+    return model 
 
 
 def save_model(model, model_type,target=None,sensor=None,crop=None):
