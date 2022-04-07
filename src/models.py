@@ -173,8 +173,8 @@ def define_convModel(cnnModel, X_train):
         #Compile model
         print('Model compilation\n')
         opt = Adam(learning_rate=3e-4)
-        #model.compile(loss='mean_squared_error', metrics=['mse'], optimizer=opt)
-        model.compile(loss='mse', optimizer=Adadelta(lr=0.01))
+        model.compile(loss='mean_squared_error', metrics=['mse'], optimizer=opt)
+        #model.compile(loss='mse', optimizer=Adadelta(lr=0.01))
 
     return model
 
