@@ -68,7 +68,7 @@ The purpose of this project is estimate pearl millet grain starch content using 
 
 
 ## Featured Notebooks/Analysis/Deliverables
-* [Notebook](https://github.com/starch-nirs-model/tree/main/examples)
+* [Notebook](https://www.github.com/adamavip/starch-nirs-model/tree/main/examples)
 
 
 
