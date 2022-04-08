@@ -57,18 +57,18 @@ The purpose of this project is estimate pearl millet grain starch content using 
 ## Getting Started
 
 1. Clone this repo (for help see this [tutorial](https://help.github.com/adamavip/starch-nirs-model/)).
-2. Raw Data is being kept [here](https://help.github.com/adamavip/starch-nirs-model/data) within this repo.
+2. Raw Data is being kept [here](https://help.github.com/adamavip/starch-nirs-model/tree/main/data) within this repo.
 
     *If using offline data mention that and how they may obtain the data from the froup)*
     
-3. Data processing/transformation scripts are being kept [here](https://help.github.com/adamavip/starch-nirs-model/src/)
+3. Data processing/transformation scripts are being kept [here](https://help.github.com/adamavip/starch-nirs-model/tree/main/src/)
 4. etc...
 
 *If your project is well underway and setup is fairly complicated (ie. requires installation of many packages) create another "setup.md" file and link to it here*  
 
 
 ## Featured Notebooks/Analysis/Deliverables
-* [Notebook](https://github.com/starch-nirs-model/examples)
+* [Notebook](https://github.com/starch-nirs-model/tree/main/examples)
 
 
 
