@@ -3,6 +3,7 @@ import numpy as np
 from datetime import datetime
 import os
 import pandas as pd
+from pickle import dump
 
 def predict_and_show_metrics(trained_model, X_train, y_train, X_val, y_val,yscaler):
     """
@@ -62,6 +63,8 @@ def predict_and_show_metrics(trained_model, X_train, y_train, X_val, y_val,yscal
 def export_results(y_train_orig,y_train_pred_orig,train_metadata,
                    y_val_orig,y_val_pred_orig,test_meta, target, model_type='CNN',sensor='Foss',crop='peanut'):
 
+    print("Start Exporting Predictions...")
+
     target = ''.join(filter(str.isalnum, target))
     save_dir = "../results/predictions"
     dtObj = datetime.utcnow()
@@ -79,3 +82,24 @@ def export_results(y_train_orig,y_train_pred_orig,train_metadata,
     exports_val = pd.DataFrame(exports_val)
     filename_val = crop+'_'+target+'_val_'+model_type+'_'+sensor+'_'+time+'_.xlsx'
     exports_val.to_excel(os.path.join(save_dir,filename_val),index=False)
+
+    print("Export Complete !")
+
+
+def save_scaler(xscaler, yscaler, target="Starch", sensor='Foss',crop='peanut'):
+    save_dir = "../results/scalers"
+    print("Start Saving Scaler")
+    now = datetime.now()
+    time = now.strftime("%Y-%m-%d")
+    #fn = crop + target + model_type + sensor + time
+    xfn = 'xscaler_'+ '_'.join([crop, target, sensor, time]) + '.pkl'
+    xfn = os.path.join(save_dir, xfn)
+    yfn = 'yscaler_'+ '_'.join([crop, target, sensor, time]) + '.pkl'
+    yfn = os.path.join(save_dir, yfn)
+
+
+
+    dump(xscaler, open(xfn, 'wb'))
+    dump(yscaler, open(yfn, 'wb'))
+    print("Saving Scaler Complete!")
+

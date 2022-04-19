@@ -203,11 +203,12 @@ def train_model(model,X_train, y_train, X_val, y_val, model_type=None):
 
 
 def save_model(model, model_type,target=None,sensor=None,crop=None):
+    print("Start Saving Model...")
     now = datetime.now()
     time = now.strftime("%Y-%m-%d")
     #fn = crop + target + model_type + sensor + time
     fn = '_'.join([crop, target, model_type, sensor, time])
-    save_dir = "./saved_models"
+    save_dir = "../results/trained_models"
 
     if model_type=='ML':
         filename = fn + ".pkl"
@@ -221,3 +222,5 @@ def save_model(model, model_type,target=None,sensor=None,crop=None):
     elif model_type == 'DL':
         filename = os.path.join(save_dir,fn)
         model.save(filename,save_format='h5')
+
+    print("Saving Complete!")
