@@ -1,4 +1,4 @@
-# Estimating millet starch content using NIRS and machine learning
+# Estimating multi-traits (protein, starch, fat, oleic acid, etc.) from multiple crops (sorghum, peanut, pearl millet, etc.) content using NIRS and machine learning
 <div>
 
   !["AI pipeline"](data/nutrition_millet.png)
